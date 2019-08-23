@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'webforum.apps.WebforumConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

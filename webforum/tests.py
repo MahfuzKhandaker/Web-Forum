@@ -11,7 +11,7 @@ class HomeTests(TestCase):
         self.assertEquals(response.status_code, 200)
     
     def test_home_url_resolves_home_view(self):
-        # test for the correct view function for the requested home URL
+        # test for the correct view function for the requested homepage URL
         view = resolve('/webforum/')
         self.assertEquals(view.func, home)
 

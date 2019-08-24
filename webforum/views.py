@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-# Create your views here.
+from webforum.models import Forum
 
 def home(request):
-    return HttpResponse("Hello from Homepage")
+    forums = Forum.objects.all()
+    return render(request, 'home.html', {'forums':forums})

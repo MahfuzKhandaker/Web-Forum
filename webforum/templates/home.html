@@ -1,18 +1,10 @@
-{% load static %}<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Forums</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-</head>
-<body>
-    <div class="container">
+{% extends 'base.html' %}
 
-        <ol class="breadcrumb my-4">
-            <li class="breadcrumb-item active"> Forum </li>
-        </ol>
+{% block breadcrumb %}
+    <li class="breadcrumb-item active"> Forum </li>
+{% endblock %}
+
+{% block content %}
 
     <table class="table">
         <thead class="thead-inverse thead-dark">
@@ -27,7 +19,8 @@
             {% for forum in forums %}
             <tr>
                 <td>
-                    {{forum.name}} <br>
+                    <a href="{% url 'forum_topics' forum.pk %}">{{forum.name}}</a>
+                     <br>
                     <small class="text-muted d-block">{{forum.description}}</small>
                 </td>
                 <td class="align-middle">0</td>
@@ -37,6 +30,4 @@
             {% endfor %}
         </tbody>
     </table>
-     </div>
-</body>
-</html>
+{% endblock %}

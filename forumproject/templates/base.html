@@ -6,8 +6,10 @@
     <link href="https://fonts.googleapis.com/css?family=Syncopate&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    {% block stylesheet %}<!-- used to add extra CSS, specific to some pages. --> {% endblock %}
   </head>
   <body>
+    {% block body %} <!--This block body is wrapping the whole HTML document -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="container">
               <a class="navbar-brand" href="{% url 'home' %}">Web Forums</a>
@@ -17,10 +19,13 @@
     <div class="container">
       <ol class="breadcrumb my-4">
         {% block breadcrumb %}
+        <!-- ADD BREADCRUMB HERE -->
         {% endblock %}
       </ol>
       {% block content %}
+      <!-- ADD CONTENT HERE -->
       {% endblock %}
     </div>
+    {% endblock body %}
   </body>
 </html>

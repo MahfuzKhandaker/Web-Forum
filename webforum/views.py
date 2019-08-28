@@ -28,7 +28,7 @@ def new_topic(request, pk):
             topic.forum = forum
             topic.started_by = user
             topic.save()
-            
+
             post = Post.objects.create(
                 message=form.cleaned_data.get('message'),
                 topic=topic,
@@ -39,5 +39,8 @@ def new_topic(request, pk):
     else:
         form = NewTopicForm()
 
-    context = {'forum':forum, 'form':form}
+    context = {
+        'forum':forum, 
+        'form':form
+        }
     return render(request, 'new_topic.html', context )

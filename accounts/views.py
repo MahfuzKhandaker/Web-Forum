@@ -11,6 +11,7 @@ def signup(request):
             user = form.save()
             auth_login(request, user)
             return redirect('home')
+            
         else:
             form = UserCreationForm()
 

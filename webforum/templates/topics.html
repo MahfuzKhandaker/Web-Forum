@@ -10,5 +10,31 @@
 {% endblock %}
 
 {% block content %}
+<div class="mb-4">
+    <a href="{% url 'new_topic' forum.pk %}" class="btn btn-primary">New Topic</a>
+</div>
+<table class="table">
+    <thead class="thead-inverse thead-dark">
+        <tr>
+            <th>Topic</th>
+            <th>Started By</th>
+            <th>Replies</th>
+            <th>Views</th>
+            <th>Last Updated</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for topic in forum.topics.all %}
+        <tr>
+            <td>{{topic.subject}}</td>
+            <th>{{topic.started_by.username}}</th>
+            <th>0</th>
+            <th>0</th>
+            <th>{{topic.last_updated.date}}</th>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
 
 {% endblock %}

@@ -24,13 +24,13 @@
         </tr>
     </thead>
     <tbody>
-        {% for topic in forum.topics.all %}
+        {% for topic in topics %}
         <tr>
-            <td>{{topic.subject}}</td>
-            <th>{{topic.started_by.username}}</th>
-            <th>0</th>
-            <th>0</th>
-            <th>{{topic.last_updated.date}}</th>
+            <td><a href="{% url 'topic_posts' forum.pk topic.pk %}">{{topic.subject}}</a></td>
+            <th>{{ topic.started_by.username }}</th>
+            <th>{{ topic.replies }}</th>
+            <th>{{ topic.views }}</th>
+            <th>{{ topic.last_updated.date }}</th>
         </tr>
         {% endfor %}
     </tbody>

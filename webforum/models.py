@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import Truncator
 # Create your models here.
 
 class Forum(models.Model):
@@ -9,12 +10,22 @@ class Forum(models.Model):
     def __str__(self):
         return self.name
 
+    def get_posts_count(self):
+        return Post.objects.filter(topic__forum=self).count()
+
+    def get_last_post(self):
+        return Post.objects.filter(topic__forum=self).order_by('-created_on').first()
+
 
 class Topic(models.Model):
     subject = models.CharField(max_length=250)
     last_updated = models.DateTimeField(auto_now_add=True)
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE, related_name='topics')
     started_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='topics')
+    views = models.PositiveIntegerField(default=0)
+    
+    def __str__(self):
+        return self.subject
 
 
 class Post(models.Model):
@@ -24,3 +35,7 @@ class Post(models.Model):
     updated_on = models.DateTimeField(null=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE,  null=True, related_name='+')
+
+    def __str__(self):
+        truncated_message = Truncator(self.message)
+        return truncated_message.chars(30)

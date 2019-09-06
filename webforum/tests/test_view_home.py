@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import resolve, reverse
 from ..models import Forum
-from ..views import home
+from ..views import ForumListView
 
 class HomeTests(TestCase):
     def setUp(self):
@@ -17,7 +17,7 @@ class HomeTests(TestCase):
     def test_home_url_resolves_home_view(self):
         # test for the correct view function for the requested homepage URL
         view = resolve('/webforum/')
-        self.assertEquals(view.func, home)
+        self.assertEquals(view.func.view_class, ForumListView )
 
     def test_home_view_contains_link_to_topics_page(self):
         forum_topics_url = reverse('forum_topics', kwargs={'pk': self.forum.pk})

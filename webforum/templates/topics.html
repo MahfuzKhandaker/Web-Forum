@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load humanize %}
+
 {% block title %}
     {{forum.name}} - {{block.super}}
 {% endblock %}
@@ -13,7 +15,8 @@
 <div class="mb-4">
     <a href="{% url 'new_topic' forum.pk %}" class="btn btn-primary">New Topic</a>
 </div>
-<table class="table">
+
+<table class="table mb-4">
     <thead class="thead-inverse thead-dark">
         <tr>
             <th>Topic</th>
@@ -30,11 +33,12 @@
             <th>{{ topic.started_by.username }}</th>
             <th>{{ topic.replies }}</th>
             <th>{{ topic.views }}</th>
-            <th>{{ topic.last_updated.date }}</th>
+            <th>{{ topic.last_updated|naturaltime }}</th>
         </tr>
         {% endfor %}
     </tbody>
-
 </table>
+
+{% include 'includes/pagination.html' %}
 
 {% endblock %}

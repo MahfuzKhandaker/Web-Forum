@@ -15,7 +15,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('home')
+            return redirect('login')
             
         else:
             form = SignUpForm()
@@ -26,10 +26,15 @@ def signup(request):
     return render(request, 'signup.html', context)
 
 
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
+
+
 @method_decorator(login_required, name='dispatch')
 class UserUpdateView(UpdateView):
     model = User
-    fields = ('first_name', 'last_name', 'email', )
+    fields = ('first_name', 'last_name', 'email' )
     template_name = 'my_account.html'
     success_url = reverse_lazy('my_account')
 

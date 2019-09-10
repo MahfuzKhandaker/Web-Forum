@@ -16,7 +16,7 @@
     <a href="{% url 'new_topic' forum.pk %}" class="btn btn-primary">New Topic</a>
 </div>
 
-<table class="table mb-4">
+<table class="table table-striped mb-4">
     <thead class="thead-inverse thead-dark">
         <tr>
             <th>Topic</th>
@@ -28,13 +28,27 @@
     </thead>
     <tbody>
         {% for topic in topics %}
+        {% url 'topic_posts' forum.pk topic.pk as topic_url %}
         <tr>
-            <td><a href="{% url 'topic_posts' forum.pk topic.pk %}">{{topic.subject}}</a></td>
-            <th>{{ topic.started_by.username }}</th>
-            <th>{{ topic.replies }}</th>
-            <th>{{ topic.views }}</th>
-            <th>{{ topic.last_updated|naturaltime }}</th>
-        </tr>
+            <td>
+              <p class="mb-0">
+                <a href="{{ topic_url }}">{{ topic.subject }}</a>
+              </p>
+              <small class="text-muted">
+                Pages:
+                {% for i in topic.get_page_range %}
+                  <a href="{{ topic_url }}?page={{ i }}">{{ i }}</a>
+                {% endfor %}
+                {% if topic.has_many_pages %}
+                ... <a href="{{ topic_url }}?page={{ topic.get_page_count }}">Last Page</a>
+                {% endif %}
+              </small>
+            </td>
+            <td class="align-middle">{{ topic.started_by.username }}</td>
+            <td class="align-middle">{{ topic.replies }}</td>
+            <td class="align-middle">{{ topic.views }}</td>
+            <td class="align-middle">{{ topic.last_updated|naturaltime }}</td>
+          </tr>
         {% endfor %}
     </tbody>
 </table>
